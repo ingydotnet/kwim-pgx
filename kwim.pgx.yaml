@@ -3,34 +3,34 @@
 +toprule: document
 +version: 0.0.1
 blank_line:
-  .rgx: '[ \t]*\r?\n'
+  .rgx: '[\ \t]*\r?\n'
 comment_line:
-  .rgx: \#.*\r?\n[ \t]*\r?\n?
+  .rgx: \#.*\r?\n[\ \t]*\r?\n?
 document:
   +min: 0
   .ref: top_level_block
 foreign_block:
-  .rgx: \.([\w\-]+)[ \t]*\r?\n((?:.*\r?\n)*?)\.\1[ \t]*\r?\n[ \t]*\r?\n?
+  .rgx: \.([\w\-]+)[\ \t]*\r?\n((?:.*\r?\n)*?)\.\1[\ \t]*\r?\n[\ \t]*\r?\n?
 header:
-  .rgx: (={1,6})[ \t]+(.+)\r?\n[ \t]*\r?\n?
+  .rgx: (={1,6})[\ \t]+(.+)\r?\n[\ \t]*\r?\n?
 horizontal_rule:
   .rgx: \-{3,}\r?\n
 ordered_list:
-  .rgx: (\-+ .*\r?\n(?:[\*\-]+ .*\r?\n)*)[ \t]*\r?\n?
+  .rgx: (\-+\ .*\r?\n(?:[\*\-]+\ .*\r?\n)*)[\ \t]*\r?\n?
 other_line:
   .rgx: (.+)\r?\n
 paragraph:
-  .rgx: ((?:(?!(?:[\#\-STAR>=]+ |[\|>]|\.[\w\-]+|\{[^\}]\}[ \t]*\r?\n)).*?\S.*\r?\n)+)[
+  .rgx: ((?:(?!(?:[\#\-STAR>=]+\ |[\|>]|\.[\w\-]+|\{[^\}]\}[\ \t]*\r?\n)).*?\S.*\r?\n)+)[\
     \t]*\r?\n?
 plugin_block:
-  .rgx: \{(.*)\}[ \t]+\r?\n[ \t]*\r?\n?
+  .rgx: \{(.*)\}[\ \t]+\r?\n[\ \t]*\r?\n?
 preformatted:
-  .rgx: '( {4}.*?\S.*\r?\n|(?: {4}.*?\S.*\r?\n(?:[ \t]*\r?\n| {4}.*?\S.*\r?\n)* {4}.*?\S.*\r?\n))[
-    \t]*\r?\n?'
+  .rgx: (\ {4}.*?\S.*\r?\n|(?:\ {4}.*?\S.*\r?\n(?:[\ \t]*\r?\n|\ {4}.*?\S.*\r?\n)*\
+    {4}.*?\S.*\r?\n))[\ \t]*\r?\n?
 quote_block:
-  .rgx: ((?:>.*EOL)+)[ \t]*\r?\n?
+  .rgx: ((?:>.*EOL)+)[\ \t]*\r?\n?
 table:
-  .rgx: ((?:\|.*\| \r?\n(?=\|)|\|[\s\S]*?\|\r?\n)+)[ \t]*\r?\n?
+  .rgx: ((?:\|.*\|\ \r?\n(?=\|)|\|[\s\S]*?\|\r?\n)+)[\ \t]*\r?\n?
 top_level_block:
   .any:
   - .ref: comment_line
@@ -47,4 +47,4 @@ top_level_block:
   - .ref: paragraph
   - .ref: other_line
 unordered_list:
-  .rgx: (\*+ .*\r?\n(?:[\*\-]+ .*\r?\n)*)[ \t]*\r?\n?
+  .rgx: (\*+\ .*\r?\n(?:[\*\-]+\ .*\r?\n)*)[\ \t]*\r?\n?
