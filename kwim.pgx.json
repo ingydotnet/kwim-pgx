@@ -2,90 +2,69 @@
    "+grammar" : "kwim",
    "+toprule" : "document",
    "+version" : "0.0.1",
-   "blank_line" : {
-      ".rgx" : "[\\ \\t]*\\r?\\n"
+   "block_blank" : {
+      ".ref" : "line_blank"
    },
-   "comment_line" : {
-      ".rgx" : "\\#.*\\r?\\n[\\ \\t]*\\r?\\n?"
+   "block_comment" : {
+      ".rgx" : "\\#\\#\\#\\r?\\n((?:.*?\\r?\\n)*?)\\#\\#\\#\\r?\\n(?:\\ *\\r?\\n)?"
    },
-   "document" : {
-      "+min" : 0,
-      ".ref" : "top_level_block"
+   "block_head" : {
+      ".rgx" : "(={1,4})\\ +(?:(.+?)\\ +=+\\r?\\n|(.+\\r?\\n(?:[^\\s].*\\r?\\n)*[^\\s].*?)\\ +=+\\r?\\n|(.+\\r?\\n(?:[^\\s].*\\r?\\n)*)(?=[\\ \\*=\\#]|\\r?\\n|\\z))(?:\\ *\\r?\\n)?"
    },
-   "foreign_block" : {
-      ".rgx" : "\\.([\\w\\-]+)[\\ \\t]*\\r?\\n((?:.*\\r?\\n)*?)\\.\\1[\\ \\t]*\\r?\\n[\\ \\t]*\\r?\\n?"
+   "block_list" : {
+      ".rgx" : "(\\*\\ .*\\r?\\n(?:\\*\\ .*\\r?\\n|(?:\\ *\\r?\\n)*\\ \\ .*\\r?\\n)*(?:\\ *\\r?\\n)?)"
    },
-   "header" : {
-      ".rgx" : "(={1,6})[\\ \\t]+(.+)\\r?\\n[\\ \\t]*\\r?\\n?"
+   "block_para" : {
+      ".rgx" : "((?:[^\\ \\*=\\#\\n].*?\\r?\\n)+)(?:\\ *\\r?\\n)?"
    },
-   "horizontal_rule" : {
-      ".rgx" : "\\-{3,}\\r?\\n"
+   "block_pref" : {
+      ".rgx" : "((?:(?:\\ *\\r?\\n)*\\ \\ .*\\r?\\n)+)(?:\\ *\\r?\\n)?"
    },
-   "ordered_list" : {
-      ".rgx" : "(\\-+\\ .*\\r?\\n(?:[\\*\\-]+\\ .*\\r?\\n)*)[\\ \\t]*\\r?\\n?"
+   "block_title" : {
+      ".rgx" : "((?:[^\\ \\*=\\#\\n].*?\\r?\\n))={3,}\\r?\\n(?:\\ *\\r?\\n)?"
    },
-   "other_line" : {
-      ".rgx" : "(.+)\\r?\\n"
-   },
-   "paragraph" : {
-      ".rgx" : "((?:(?!(?:[\\#\\-STAR>=]+\\ |[\\|>]|\\.[\\w\\-]+|\\{[^\\}]\\}[\\ \\t]*\\r?\\n)).*?\\S.*\\r?\\n)+)[\\ \\t]*\\r?\\n?"
-   },
-   "plugin_block" : {
-      ".rgx" : "\\{(.*)\\}[\\ \\t]+\\r?\\n[\\ \\t]*\\r?\\n?"
-   },
-   "preformatted" : {
-      ".rgx" : "(\\ {4}.*?\\S.*\\r?\\n|(?:\\ {4}.*?\\S.*\\r?\\n(?:[\\ \\t]*\\r?\\n|\\ {4}.*?\\S.*\\r?\\n)*\\ {4}.*?\\S.*\\r?\\n))[\\ \\t]*\\r?\\n?"
-   },
-   "quote_block" : {
-      ".rgx" : "((?:>.*EOL)+)[\\ \\t]*\\r?\\n?"
-   },
-   "table" : {
-      ".rgx" : "((?:\\|.*\\|\\ \\r?\\n(?=\\|)|\\|[\\s\\S]*?\\|\\r?\\n)+)[\\ \\t]*\\r?\\n?"
-   },
-   "top_level_block" : {
+   "block_top" : {
       ".any" : [
          {
-            ".ref" : "comment_line"
+            ".ref" : "block_blank"
          },
          {
-            ".ref" : "foreign_block"
+            ".ref" : "block_comment"
          },
          {
-            ".ref" : "plugin_block"
+            ".ref" : "line_comment"
          },
          {
-            ".ref" : "header"
+            ".ref" : "block_head"
          },
          {
-            ".ref" : "unordered_list"
+            ".ref" : "block_pref"
          },
          {
-            ".ref" : "ordered_list"
+            ".ref" : "block_list"
          },
          {
-            ".ref" : "table"
+            ".ref" : "block_title"
          },
          {
-            ".ref" : "quote_block"
+            ".ref" : "block_verse"
          },
          {
-            ".ref" : "horizontal_rule"
-         },
-         {
-            ".ref" : "preformatted"
-         },
-         {
-            ".ref" : "blank_line"
-         },
-         {
-            ".ref" : "paragraph"
-         },
-         {
-            ".ref" : "other_line"
+            ".ref" : "block_para"
          }
       ]
    },
-   "unordered_list" : {
-      ".rgx" : "(\\*+\\ .*\\r?\\n(?:[\\*\\-]+\\ .*\\r?\\n)*)[\\ \\t]*\\r?\\n?"
+   "block_verse" : {
+      ".rgx" : "\\.\\r?\\n((?:[^\\ \\*=\\#\\n].*?\\r?\\n)+)(?:\\ *\\r?\\n)?"
+   },
+   "document" : {
+      "+min" : 0,
+      ".ref" : "block_top"
+   },
+   "line_blank" : {
+      ".rgx" : "(?:\\ *\\r?\\n)"
+   },
+   "line_comment" : {
+      ".rgx" : "\\#\\ ?(.*?)\\r?\\n(?:\\ *\\r?\\n)?"
    }
 }
