@@ -140,9 +140,11 @@ phrase-hyper-named: /
   DOUBLE ( [^ DOUBLE ]+ ) DOUBLE
   LANGLE ( NS*? ) RANGLE
 /
+
 phrase-hyper-explicit: /
   LANGLE ( NS*? ) RANGLE
 /
+
 phrase-hyper-implicit: /(https? COLON NS+)/
 
 char-next: / ( ALL ) /
