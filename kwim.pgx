@@ -82,6 +82,11 @@ line-indented: /
 block-title: /
   ( text-line )
   EQUAL{3,} EOL
+  (:
+    line-blank
+    ( text-line )
+    (= line-blank | EOS )
+  )?
   line-blank?
 /
 
@@ -105,6 +110,7 @@ phrase-markup:
   | phrase-emph
   | phrase-code
   | phrase-hyper
+  | phrase-link
   | char-next
 
 char-escape: / BACK ( ANY ) /
@@ -147,9 +153,22 @@ phrase-hyper-explicit: /
 
 phrase-hyper-implicit: /(https? COLON NS+)/
 
+phrase-link:
+  | phrase-link-named
+  | phrase-link-plain
+
+phrase-link-named: /
+  DOUBLE ( [^ DOUBLE ]+ ) DOUBLE
+  LSQUARE ( NS*? ) RSQUARE
+/
+
+phrase-link-plain: /
+  LSQUARE ( NS*? ) RSQUARE
+/
+
 char-next: / ( ALL ) /
 
-text-line: / (: [^ char-block-start NL ] ANY*? EOL ) /
+text-line: / (: (! [ char-block-start NL ] SPACE) ANY* NS ANY* EOL ) /
 
 line-blank: / (: SPACE* EOL ) /
 
@@ -165,6 +184,7 @@ char-phrase-start: /
   char-emph
   char-code
   char-hyper
+  char-link
   char-esc
 /
 
@@ -176,6 +196,7 @@ char-bold: / STAR /
 char-emph: / SLASH /
 char-code: / GRAVE /
 char-hyper: / DOUBLE LANGLE /
+char-link: / DOUBLE LSQUARE /
 char-esc: / BACK /
 
 # vim: set lisp sw=2:
