@@ -53,14 +53,39 @@ block-pref: /
   line-blank?
 /
 
-block-list: /(
-  line-list-item
-  (: line-list-item | line-blank* line-indented )*
+block-list:
+  | block-list-bullet
+  | block-list-number
+  | block-list-data
+
+block-list-bullet: /(
+  line-list-item-bullet
+  (: line-list-item-bullet | line-blank* line-indented )*
   line-blank?
 )/
 
-line-list-item: /
+block-list-number: /(
+  line-list-item-number
+  (: line-list-item-number | line-blank* line-indented )*
+  line-blank?
+)/
+
+block-list-data: /(
+  line-list-item-data
+  (: line-list-item-data | line-blank* line-indented )*
+  line-blank?
+)/
+
+line-list-item-bullet: /
   STAR SPACE ANY* EOL
+/
+
+line-list-item-number: /
+  PLUS SPACE ANY* EOL
+/
+
+line-list-item-data: /
+  DASH SPACE ANY* EOL
 /
 
 block-list-item: (

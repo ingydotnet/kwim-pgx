@@ -10,13 +10,23 @@ block_head:
   .rgx: (={1,4})\ +(?:(.+?)\ +=+\r?\n|(.+\r?\n(?:[^\s].*\r?\n)*[^\s].*?)\ +=+\r?\n|(.+\r?\n(?:[^\s].*\r?\n)*)(?=[\
     \*=\#]|\r?\n|\z))(?:\ *\r?\n)?
 block_list:
+  .any:
+  - .ref: block_list_bullet
+  - .ref: block_list_number
+  - .ref: block_list_data
+block_list_bullet:
+  .rgx: (\*\ .*\r?\n(?:\*\ .*\r?\n|(?:\ *\r?\n)*\ \ .*\r?\n)*(?:\ *\r?\n)?)
+block_list_data:
+  .rgx: (\*\ .*\r?\n(?:\*\ .*\r?\n|(?:\ *\r?\n)*\ \ .*\r?\n)*(?:\ *\r?\n)?)
+block_list_number:
   .rgx: (\*\ .*\r?\n(?:\*\ .*\r?\n|(?:\ *\r?\n)*\ \ .*\r?\n)*(?:\ *\r?\n)?)
 block_para:
-  .rgx: ((?:[^\ \*=\#\n].*?\r?\n)+)(?:\ *\r?\n)?
+  .rgx: ((?:(?![\ \*=\#\n]\ ).*\S.*\r?\n)+)(?:\ *\r?\n)?
 block_pref:
   .rgx: ((?:(?:\ *\r?\n)*\ \ .*\r?\n)+)(?:\ *\r?\n)?
 block_title:
-  .rgx: ((?:[^\ \*=\#\n].*?\r?\n))={3,}\r?\n(?:\ *\r?\n)?
+  .rgx: ((?:(?![\ \*=\#\n]\ ).*\S.*\r?\n))={3,}\r?\n(?:(?:\ *\r?\n)((?:(?![\ \*=\#\n]\
+    ).*\S.*\r?\n))(?=(?:\ *\r?\n)|\z))?(?:\ *\r?\n)?
 block_top:
   .any:
   - .ref: block_blank
@@ -29,7 +39,7 @@ block_top:
   - .ref: block_verse
   - .ref: block_para
 block_verse:
-  .rgx: \.\r?\n((?:[^\ \*=\#\n].*?\r?\n)+)(?:\ *\r?\n)?
+  .rgx: \.\r?\n((?:(?![\ \*=\#\n]\ ).*\S.*\r?\n)+)(?:\ *\r?\n)?
 document:
   +min: 0
   .ref: block_top
