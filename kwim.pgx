@@ -72,8 +72,7 @@ block-list-number: /(
 
 block-list-data: /(
   line-list-item-data
-  (: line-list-item-data | line-blank* line-indented )*
-  line-blank?
+  (: line-list-item-data | line-blank | line-indented )*
 )/
 
 line-list-item-bullet: /
@@ -169,11 +168,11 @@ phrase-hyper:
 
 phrase-hyper-named: /
   DOUBLE ( [^ DOUBLE ]+ ) DOUBLE
-  LANGLE ( NS*? ) RANGLE
+  LSQUARE (https?: NS*? ) RSQUARE
 /
 
 phrase-hyper-explicit: /
-  LANGLE ( NS*? ) RANGLE
+  LSQUARE (https?: NS*? ) RSQUARE
 /
 
 phrase-hyper-implicit: /(https? COLON NS+)/
