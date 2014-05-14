@@ -130,6 +130,7 @@ text-markup: phrase-markup+
 phrase-markup:
   | phrase-text
   | char-escape
+  | phrase-func
   | phrase-bold
   | phrase-emph
   | phrase-code
@@ -149,6 +150,12 @@ phrase-code: /
   GRAVE
   ( [^ GRAVE]*? )
   GRAVE
+/
+
+phrase-func: /
+  char-func-start
+  ( [^ char-func-end]+ )
+  char-func-end
 /
 
 phrase-bold:
@@ -204,10 +211,10 @@ char-block-start: /
 /
 
 char-phrase-start: /
+  char-func-start
   char-bold
   char-emph
   char-code
-  char-hyper
   char-link
   char-esc
 /
@@ -219,8 +226,9 @@ char-comment: / HASH /
 char-bold: / STAR /
 char-emph: / SLASH /
 char-code: / GRAVE /
-char-hyper: / DOUBLE LANGLE /
 char-link: / DOUBLE LSQUARE /
 char-esc: / BACK /
+char-func-start: / LANGLE /
+char-func-end: / RANGLE /
 
 # vim: set lisp sw=2:
