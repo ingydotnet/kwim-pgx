@@ -170,7 +170,7 @@ phrase-emph:
   marker-emph
 
 phrase-del:
-  / marker-del (= NS [^ marker-del]) /
+  / marker-del (= NS) (! marker-del) /
   ( !marker-del phrase-markup )+
   marker-del
 
