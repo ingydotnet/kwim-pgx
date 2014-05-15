@@ -39,7 +39,7 @@ block-head: /
   ( EQUAL{1,4} ) SPACE+ (:
     ( ANY+? ) SPACE+ EQUAL+ EOL
   | ( ANY+ EOL (: [^ WS ] ANY* EOL )* [^ WS ] ANY*? ) SPACE+ EQUAL+ EOL
-  | ( ANY+ EOL (: [^ WS ] ANY* EOL )*) (= [ char-block-start ] | EOL | EOS)
+  | ( ANY+ EOL (: [^ WS ] ANY* EOL )*) (= [ marker-block-start ] | EOL | EOS)
   ) line-blank?
 /
 
@@ -129,7 +129,7 @@ text-markup: phrase-markup+
 
 phrase-markup:
   | phrase-text
-  | char-escape
+  | marker-escape
   | phrase-func
   | phrase-code
   | phrase-bold
@@ -137,42 +137,42 @@ phrase-markup:
   | phrase-del
   | phrase-hyper
   | phrase-link
-  | char-next
+  | marker-next
 
-char-escape: / BACK ( ANY ) /
+marker-escape: / BACK ( ANY ) /
 
 phrase-text: /
   (
-    (: (! [ char-phrase-start ] |https? COLON ) ALL)+
+    (: (! [ marker-phrase-start ] |https? COLON ) ALL)+
   )
 /
 
 phrase-code: /
-  char-code
-  ( [^ char-code]*? )
-  char-code
+  marker-code
+  ( [^ marker-code]*? )
+  marker-code
 /
 
 phrase-func: /
-  char-func-start
-  ( [^ char-func-end]+ )
-  char-func-end
+  marker-func-start
+  ( [^ marker-func-end]+ )
+  marker-func-end
 /
 
 phrase-bold:
-  / char-bold (= NS [^ char-bold]) /
-  ( !char-bold phrase-markup )+
-  char-bold
+  / marker-bold (= NS [^ marker-bold]) /
+  ( !marker-bold phrase-markup )+
+  marker-bold
 
 phrase-emph:
-  / char-emph (= NS [^ char-emph]) /
-  ( !char-emph phrase-markup )+
-  char-emph
+  / marker-emph (= NS [^ marker-emph]) /
+  ( !marker-emph phrase-markup )+
+  marker-emph
 
 phrase-del:
-  / char-del (= NS [^ char-del]) /
-  ( !char-del phrase-markup )+
-  char-del
+  / marker-del (= NS [^ marker-del]) /
+  ( !marker-del phrase-markup )+
+  marker-del
 
 phrase-hyper:
   | phrase-hyper-named
@@ -203,40 +203,40 @@ phrase-link-plain: /
   LSQUARE ( NS*? ) RSQUARE
 /
 
-char-next: / ( ALL ) /
+marker-next: / ( ALL ) /
 
-text-line: / (: (! [ char-block-start NL ] SPACE) ANY* NS ANY* EOL ) /
+text-line: / (: (! [ marker-block-start NL ] SPACE) ANY* NS ANY* EOL ) /
 
 line-blank: / (: SPACE* EOL ) /
 
-char-block-start: /
-  char-pref
-  char-list
-  char-head
-  char-comment
+marker-block-start: /
+  marker-pref
+  marker-list
+  marker-head
+  marker-comment
 /
 
-char-phrase-start: /
-  char-func-start
-  char-code
-  char-bold
-  char-emph
-  char-del
-  char-link
-  char-esc
+marker-phrase-start: /
+  marker-func-start
+  marker-code
+  marker-bold
+  marker-emph
+  marker-del
+  marker-link
+  marker-esc
 /
 
-char-pref: / SPACE /
-char-list: / STAR /
-char-head: / EQUAL /
-char-comment: / HASH /
-char-func-start: / LANGLE /
-char-func-end: / RANGLE /
-char-code: / GRAVE /
-char-bold: / STAR /
-char-emph: / SLASH /
-char-del: / DASH /
-char-link: / DOUBLE LSQUARE /
-char-esc: / BACK /
+marker-pref: / SPACE /
+marker-list: / STAR /
+marker-head: / EQUAL /
+marker-comment: / HASH /
+marker-func-start: / LANGLE /
+marker-func-end: / RANGLE /
+marker-code: / GRAVE /
+marker-bold: / STAR /
+marker-emph: / SLASH /
+marker-del: / DASH DASH /
+marker-link: / DOUBLE LSQUARE /
+marker-esc: / BACK /
 
 # vim: set lisp sw=2:
