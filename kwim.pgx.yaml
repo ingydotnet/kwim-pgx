@@ -17,9 +17,9 @@ block_list:
 block_list_bullet:
   .rgx: (\*\ .*\r?\n(?:\*\ .*\r?\n|(?:\ *\r?\n)*\ \ .*\r?\n)*(?:\ *\r?\n)?)
 block_list_data:
-  .rgx: (\*\ .*\r?\n(?:\*\ .*\r?\n|(?:\ *\r?\n)*\ \ .*\r?\n)*(?:\ *\r?\n)?)
+  .rgx: (\-\ .*\r?\n(?:\-\ .*\r?\n|(?:\ *\r?\n)|\ \ .*\r?\n)*)
 block_list_number:
-  .rgx: (\*\ .*\r?\n(?:\*\ .*\r?\n|(?:\ *\r?\n)*\ \ .*\r?\n)*(?:\ *\r?\n)?)
+  .rgx: (\+\ .*\r?\n(?:\+\ .*\r?\n|(?:\ *\r?\n)*\ \ .*\r?\n)*(?:\ *\r?\n)?)
 block_para:
   .rgx: ((?:(?![\ \*=\#\n]\ ).*\S.*\r?\n)+)(?:\ *\r?\n)?
 block_pref:

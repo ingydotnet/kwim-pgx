@@ -131,9 +131,10 @@ phrase-markup:
   | phrase-text
   | char-escape
   | phrase-func
+  | phrase-code
   | phrase-bold
   | phrase-emph
-  | phrase-code
+  | phrase-del
   | phrase-hyper
   | phrase-link
   | char-next
@@ -147,9 +148,9 @@ phrase-text: /
 /
 
 phrase-code: /
-  GRAVE
-  ( [^ GRAVE]*? )
-  GRAVE
+  char-code
+  ( [^ char-code]*? )
+  char-code
 /
 
 phrase-func: /
@@ -160,13 +161,21 @@ phrase-func: /
 
 phrase-bold:
   char-bold
+  /(= NS)/
   ( !char-bold phrase-markup )+
   char-bold
 
 phrase-emph:
+  /(= NS)/
   char-emph
   ( !char-emph phrase-markup )+
   char-emph
+
+phrase-del:
+  /(= NS)/
+  char-del
+  ( !char-del phrase-markup )+
+  char-del
 
 phrase-hyper:
   | phrase-hyper-named
@@ -212,9 +221,10 @@ char-block-start: /
 
 char-phrase-start: /
   char-func-start
+  char-code
   char-bold
   char-emph
-  char-code
+  char-del
   char-link
   char-esc
 /
@@ -223,12 +233,13 @@ char-pref: / SPACE /
 char-list: / STAR /
 char-head: / EQUAL /
 char-comment: / HASH /
-char-bold: / STAR /
-char-emph: / SLASH /
-char-code: / GRAVE /
-char-link: / DOUBLE LSQUARE /
-char-esc: / BACK /
 char-func-start: / LANGLE /
 char-func-end: / RANGLE /
+char-code: / GRAVE /
+char-bold: / STAR /
+char-emph: / SLASH /
+char-del: / DASH /
+char-link: / DOUBLE LSQUARE /
+char-esc: / BACK /
 
 # vim: set lisp sw=2:
