@@ -160,20 +160,17 @@ phrase-func: /
 /
 
 phrase-bold:
-  char-bold
-  /(= NS)/
+  / char-bold (= NS [^ char-bold]) /
   ( !char-bold phrase-markup )+
   char-bold
 
 phrase-emph:
-  /(= NS)/
-  char-emph
+  / char-emph (= NS [^ char-emph]) /
   ( !char-emph phrase-markup )+
   char-emph
 
 phrase-del:
-  /(= NS)/
-  char-del
+  / char-del (= NS [^ char-del]) /
   ( !char-del phrase-markup )+
   char-del
 
