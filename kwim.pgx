@@ -205,7 +205,7 @@ phrase-link-plain: /
 
 marker-next: / ( ALL ) /
 
-text-line: / (: (! [ marker-block-start NL ] SPACE) ANY* NS ANY* EOL ) /
+text-line: / (: (! [ marker-block-start NL ] SPACE) ANY* NS ANY* (: EOL | EOS ) ) /
 
 line-blank: / (: SPACE* EOL ) /
 
